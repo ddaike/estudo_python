@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Notas dos Alunos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>Cadastro de Notas</h1>
+
+<form method="post">
+    <input type="text" name="nome" placeholder="Nome do aluno" required><br><br>
+    <input type="number" step="0.01" name="n1" placeholder="Nota 1" required><br><br>
+    <input type="number" step="0.01" name="n2" placeholder="Nota 2" required><br><br>
+    <input type="number" step="0.01" name="n3" placeholder="Nota 3" required><br><br>
+
+    <button type="submit">Adicionar aluno</button>
+</form>
+
+<hr>
+
+<h2>Lista de Alunos</h2>
+
+{% if alunos %}
+<table border="1" cellpadding="10" align="center">
+    <tr>
+        <th>Nome</th>
+        <th>Nota 1</th>
+        <th>Nota 2</th>
+        <th>Nota 3</th>
+        <th>Média</th>
+        <th>Status</th>
+    </tr>
+
+    {% for aluno in alunos %}
+    <tr>
+        <td>{{ aluno.nome }}</td>
+        <td>{{ aluno.n1 }}</td>
+        <td>{{ aluno.n2 }}</td>
+        <td>{{ aluno.n3 }}</td>
+        <td>{{ aluno.media }}</td>
+        <td class="{{ 'aprovado' if aluno.status == 'Aprovado' else 'reprovado' }}">
+    {{ aluno.status }}
+</td>
+
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>Nenhum aluno cadastrado ainda.</p>
+{% endif %}
+
+</body>
+</html>
